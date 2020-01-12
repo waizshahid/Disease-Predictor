@@ -34,6 +34,7 @@ conn.execute('CREATE TABLE IF NOT EXISTS Malaria (id INTEGER PRIMARY KEY,positiv
 @app.route('/prediction', methods=['POST'])
 def api_image():
     # Database
+    print('API CALL')
     firstName = request.args['fname']
     lastName = request.args['lname']
     ins_ID = request.args['ins_ID']

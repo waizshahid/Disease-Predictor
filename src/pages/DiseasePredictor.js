@@ -5,7 +5,6 @@ import Page from 'components/Page';
 import ProductMedia from 'components/ProductMedia';
 import SupportTicket from 'components/SupportTicket';
 import UserProgressTable from 'components/UserProgressTable';
-import Signup from 'components/Signup'
 import { IconWidget, NumberWidget } from 'components/Widget';
 import {FaStethoscope,FaPersonBooth,FaPlusCircle, FaMinusCircle} from "react-icons/fa";
 import { getStackLineChart, stackLineChartOptions } from 'demos/chartjs';
@@ -18,6 +17,7 @@ import {
   userProgressTableData,
 } from 'demos/dashboardPage';
 import React from 'react';
+import axios from 'axios'
 import { Bar, Line } from 'react-chartjs-2';
 import InfiniteCalendar from 'react-infinite-calendar';
 import {
@@ -58,9 +58,18 @@ export default class DiseasePredictor extends React.Component {
   componentDidMount() {
 
   }
+
+
   ScanImage = (event) => {
     event.preventDefault();
     console.log(this.state.imageUploaded,this.state.scanImage,this.state.firstName,this.state.lastName,this.state.insuranceID,this.state.dob,this.state.model)
+    let form_data = new FormData();
+    form_data.append('photo', this.state.scanImage);
+    let url = 'http://localhost:5000/prediction';
+    axios.post(url + '?model='+this.state.model+'&fname='+this.state.firstName+'&lname='+this.state.lastName+'&ins_ID='+this.state.insuranceID+'&city='+this.state.cityName+'&dob='+this.state.dob, form_data)
+     .then(function (response) {
+       console.log(response);
+     })
   }
 
   handleChange = name => event => {
@@ -72,6 +81,7 @@ export default class DiseasePredictor extends React.Component {
       scanImage: e.target.files[0],
       imageUploaded : false,
     })
+    console.log(e.target.files[0].name)
   };
 
 
