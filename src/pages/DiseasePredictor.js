@@ -58,18 +58,9 @@ export default class DiseasePredictor extends React.Component {
   componentDidMount() {
 
   }
-
-
   ScanImage = (event) => {
     event.preventDefault();
     console.log(this.state.imageUploaded,this.state.scanImage,this.state.firstName,this.state.lastName,this.state.insuranceID,this.state.dob,this.state.model)
-    let form_data = new FormData();
-    form_data.append('photo', this.state.scanImage);
-    let url = 'http://localhost:5000/prediction';
-    axios.post(url + '?model='+this.state.model+'&fname='+this.state.firstName+'&lname='+this.state.lastName+'&ins_ID='+this.state.insuranceID+'&city='+this.state.cityName+'&dob='+this.state.dob, form_data)
-     .then(function (response) {
-       console.log(response);
-     })
   }
 
   handleChange = name => event => {
@@ -81,7 +72,6 @@ export default class DiseasePredictor extends React.Component {
       scanImage: e.target.files[0],
       imageUploaded : false,
     })
-    console.log(e.target.files[0].name)
   };
 
 
